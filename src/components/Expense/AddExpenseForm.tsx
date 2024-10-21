@@ -35,9 +35,11 @@ const AddExpenseForm = () => {
           <label htmlFor="name">Name</label>
           <input
             required
+            placeholder="input a name"
             type="text"
             className="form-control"
             id="name"
+            data-testid="name"
             value={name}
             onChange={(e) => setName(e.target.value)}
           ></input>
@@ -46,15 +48,17 @@ const AddExpenseForm = () => {
           <label htmlFor="cost">Cost</label>
           <input
             required
-            type="text"
+            placeholder="input a cost"
+            type="number"
             className="form-control"
             id="cost"
+            data-testid="cost"
             value={cost}
             onChange={(e) => setCost(e.target.value)}
           ></input>
         </div>
         <div className="col-sm">
-          <button type="submit" className="btn btn-primary mt-3">
+          <button type="submit" className="btn btn-primary mt-3" data-testid="save">
             Save
           </button>
         </div>
