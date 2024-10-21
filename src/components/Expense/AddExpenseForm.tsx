@@ -18,11 +18,12 @@ const AddExpenseForm = () => {
     event.preventDefault();
 
     // Exercise: Add add new expense to expenses context array
+    const newCost = parseInt(cost)
 
     const newExpense : Expense = {
       id: String(expenses.length) as string,
       name: name as string,
-      cost: cost as unknown as number
+      cost: newCost
     }
     setExpenses(expenses => [...expenses, newExpense])
   };
