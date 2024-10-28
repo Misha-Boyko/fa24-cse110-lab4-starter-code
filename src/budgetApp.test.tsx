@@ -91,24 +91,48 @@ describe("Delete Expense", () => {
             target: { value: 50 },
         });
         fireEvent.click(createExpenseButton);
-        
-        const totalSpentComponent = screen.getByTestId("total-spent");
-        const remainingComponent = screen.getByTestId("remaining");
 
-        const totalSpentText = totalSpentComponent?.textContent || ""; 
-        const remainingText = remainingComponent?.textContent || ""; 
+        let totalSpentComponent = screen.getByTestId("total-spent");
+        let remainingComponent = screen.getByTestId("remaining");
 
-        const totalSpentMatch = totalSpentText.match(/\$(\d+)/);
-        const remainingMatch = remainingText.match(/\$(\d+)/);
+        let totalSpentText = totalSpentComponent?.textContent || ""; 
+        let remainingText = remainingComponent?.textContent || ""; 
 
-        const totalSpentAmount = totalSpentMatch ? totalSpentMatch[1] : null; 
-        const remainingAmount = remainingMatch ? remainingMatch[1] : null; 
+        let totalSpentMatch = totalSpentText.match(/\$(\d+)/);
+        let remainingMatch = remainingText.match(/\$(\d+)/);
+
+        let totalSpentAmount = totalSpentMatch ? totalSpentMatch[1] : null; 
+        let remainingAmount = remainingMatch ? remainingMatch[1] : null; 
 
         if (totalSpentAmount !== null) {
             expect(totalSpentAmount).toBe("50"); 
             // original budget: 2340
             expect(remainingAmount).toBe("2290"); 
         }
+
+        const deleteExpenseButton = screen.getByTestId("Surfboard-delete");
+        fireEvent.click(deleteExpenseButton);
+
+
+        totalSpentComponent = screen.getByTestId("total-spent");
+        remainingComponent = screen.getByTestId("remaining");
+
+        totalSpentText = totalSpentComponent?.textContent || ""; 
+        remainingText = remainingComponent?.textContent || ""; 
+
+        totalSpentMatch = totalSpentText.match(/\$(\d+)/);
+        remainingMatch = remainingText.match(/\$(\d+)/);
+
+        totalSpentAmount = totalSpentMatch ? totalSpentMatch[1] : null; 
+        remainingAmount = remainingMatch ? remainingMatch[1] : null; 
+
+        if (totalSpentAmount !== null) {
+            expect(totalSpentAmount).toBe("0"); 
+            // original budget: 2340
+            expect(remainingAmount).toBe("2340"); 
+        }
+
+
     });
 
 });
@@ -134,5 +158,18 @@ describe("Balance Verification", () => {
         const resultRem = totalRem.textContent.match(/\d+/);
         const sum = parseInt(resultSpent[0])+parseInt(resultRem[0])
         expect(sum).toBe(2340)
+
+        const deleteExpenseButton = screen.getByTestId("Surfboard-delete");
+        fireEvent.click(deleteExpenseButton);
+
+        const deletedExpenseTitle = screen.queryByText("Surfboard");
+        const deletedExpenseCost = screen.queryByText("50");
+
+        const totalSpent2 = screen.getByText(/Remaining:/)
+        const resultSpent2 = totalSpent2.textContent.match(/\d+/);
+        const totalRem2 = screen.getByText(/Spent so far:/)
+        const resultRem2 = totalRem2.textContent.match(/\d+/);
+        const sum2 = parseInt(resultSpent2[0])+parseInt(resultRem2[0])
+        expect(sum2).toBe(2340)
     });
 });
