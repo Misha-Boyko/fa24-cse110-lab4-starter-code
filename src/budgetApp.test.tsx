@@ -24,7 +24,7 @@ describe("Create Expense", () => {
         const newExpenseTitle = screen.getByTestId("Surfboard");
         const newCostContent = screen.getByTestId(50);
 
-        expect("test").toBeInTheDocument();
+        expect(newExpenseTitle).toBeInTheDocument();
         expect(newCostContent).toBeInTheDocument();
     });
 
