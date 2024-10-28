@@ -2,6 +2,7 @@ import React, { useState, useContext } from "react";
 import { AppContext } from "../../context/AppContext"
 import { Expense } from "../../types/types";
 import { isNewExpression } from "typescript";
+import { createExpense } from "../../utils/expense-utils";
 
 
 
@@ -25,6 +26,9 @@ const AddExpenseForm = () => {
       name: name as string,
       cost: newCost
     }
+
+    createExpense(newExpense);
+
     setExpenses(expenses => [...expenses, newExpense])
   };
 

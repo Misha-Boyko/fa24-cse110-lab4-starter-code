@@ -5,12 +5,14 @@ import { Expense } from "../types/types";
 
 interface AppContextType {
   budget: number;
+  setBudget: React.Dispatch<React.SetStateAction<number>>;
   expenses: Expense[];
   setExpenses: React.Dispatch<React.SetStateAction<Expense[]>>;
 }
 
 const initialState: AppContextType = {
   budget: 2340,
+  setBudget: () => {}, 
   expenses: [],
   setExpenses: () => {},
 };
@@ -25,6 +27,7 @@ export const AppProvider = (props: any) => {
     <AppContext.Provider
       value={{
         budget: budget,
+        setBudget: setBudget,
         expenses: expenses,
         setExpenses: setExpenses,
       }}
